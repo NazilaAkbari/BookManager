@@ -1,0 +1,9 @@
+package com.nazi.persistence;
+
+import org.springframework.data.repository.CrudRepository;
+
+import com.nazi.model.Book;
+
+public interface BookRepository extends CrudRepository<Book, Long> {
+
+}
