@@ -1,4 +1,5 @@
 package com.nazi.model;
+
 import java.util.List;
 import java.util.Set;
 
@@ -13,21 +14,10 @@ import javax.persistence.OneToMany;
 @Entity
 public class Friend {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
 	private String email;
-	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER)
-	private List<Book> books;
-
-
-	public List<Book> getBooks() {
-		return books;
-	}
-
-	public void setBooks(List<Book> books) {
-		this.books = books;
-	}
 
 	public Long getId() {
 		return id;
@@ -52,8 +42,9 @@ public class Friend {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 	@Override
 	public String toString() {
-		return this.name + " " + this.email;
+		return this.name;
 	}
 }

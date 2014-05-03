@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1" />
+<title>Insert title here</title>
+<link href="/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+	<div th:replace="parts/HeadBanner::header"></div>
+	<h2>Lend Book</h2>
+	<form th:action="@{/saveLendBook}" method="post">
+		<input type="hidden" name="bookid" th:value="${book.id}" />
+		<div>
+			<span th:value="${book.name}"></span>
+		</div>
+		<div>
+			<label>Enter Friend Name:</label> <select name="friendid">
+				<option th:each="friend:${friends}" th:value="${friend.id}"
+					th:text="${friend.name}"></option>
+			</select>
+		</div>
+		<input type="submit" value="Save" />
+	</form>
+</body>
+</html>

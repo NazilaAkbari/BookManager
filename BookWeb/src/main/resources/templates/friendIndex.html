@@ -24,34 +24,30 @@
 
 		<div class="starter-template">
 			<h1>Manage Your Library</h1>
-			<a th:href="@{/addBook}" type="button" data-loading-text="Loading..."
-				class="btn btn-primary" id="add"> Add Book </a>
+			<a th:href="@{/addFriend}" type="button"
+				data-loading-text="Loading..." class="btn btn-primary"
+				id="addFriend"> Add Friend </a>
 		</div>
 		<table class="table">
 			<thead>
 				<tr>
 					<th>number</th>
-					<th>Book Name</th>
-					<th>Author</th>
-					<th>Owner</th>
-					<th style="text-align: center;">Action</th>
+					<th>Friend Name</th>
+					<th>Email</th>
+					<th>Edit or Delete</th>
 				</tr>
 			</thead>
-			<tbody id="bookContainer">
-				<tr th:each="book : ${books}">
-					<td th:text="${book.id}">id</td>
-					<td th:text="${book.name}">name</td>
-					<td th:text="${book.author}">author</td>
-					<td th:text="${book.owner}">owner</td>
-					<td><a th:href="@{/editBook(id=${book.id})}" type="button"
-						data-loading-text="Loading..." class="btn btn-primary" id="edit">
-							Edit Book </a> <a th:href="@{/deleteBook(id=${book.id})}"
-						type="button" data-loading-text="Loading..."
-						class="btn btn-primary" id="delete"> Delete Book </a> <a
-						th:href="@{/lendBook(id=${book.id})}" type="button"
-						data-loading-text="Loading..." class="btn btn-primary" id="lend">
-							Lend Book </a></td>
-
+			<tbody id="friendContainer">
+				<tr th:each="friend : ${friends}">
+					<td th:text="${friend.id}">id</td>
+					<td th:text="${friend.name}">name</td>
+					<td th:text="${friend.email}">Email</td>
+					<td><a th:href="@{/editFriend(id=${friend.id})}" type="button"
+						data-loading-text="Loading..." class="btn btn-primary"
+						id="editFriend"> Edit Friend </a> <a
+						th:href="@{/deleteFriend(id=${friend.id})}" type="button"
+						data-loading-text="Loading..." class="btn btn-primary"
+						id="deleteFriend"> Delete Friend </a></td>
 				</tr>
 			</tbody>
 		</table>

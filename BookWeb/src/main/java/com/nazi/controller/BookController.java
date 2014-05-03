@@ -9,13 +9,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nazi.model.Book;
+import com.nazi.model.Friend;
 import com.nazi.service.BookService;
+import com.nazi.service.FriendService;
 
 @Controller
 public class BookController {
 
 	@Autowired
 	private BookService bookservice;
+	@Autowired
+	private FriendService friendService;
 
 	@RequestMapping("/")
 	public ModelAndView index() {
@@ -40,7 +44,7 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "/editBook")
-	public ModelAndView edtiBookPage(@RequestParam Long id) {
+	public ModelAndView editBookPage(@RequestParam Long id) {
 		Book book = bookservice.findBook(id);
 		ModelAndView MAV = new ModelAndView("editBook", "book", book);
 		return MAV;
@@ -63,5 +67,30 @@ public class BookController {
 		Book book = bookservice.findBook(id);
 		bookservice.deleteBook(book);
 		return "redirect:/";
+	}
+
+	@RequestMapping(value = "/lendBook")
+	public ModelAndView lendBookPage(@RequestParam Long id) {
+		Book book = bookservice.findBook(id);
+		Iterable<Friend> friends = friendService.loadAllFriend();
+		ModelAndView MAV = new ModelAndView("lendBook", "book", book);
+		MAV.addObject("friends", friends);
+		return MAV;
+	}
+
+	@RequestMapping(value = "/saveLendBook")
+	public String saveLendBook(@RequestParam Long bookid,
+			@RequestParam Long friendid) {
+		Book book = bookservice.findBook(bookid);
+		Friend friend = friendService.findFriend(friendid);
+		bookservice.lendBook(book, friend);
+		return "redirect:/";
+	}
+
+	@RequestMapping(value = "/getBooks")
+	public @ResponseBody
+	Iterable<Book> getAllBook() {
+		Iterable<Book> books = bookservice.loadAll();
+		return books;
 	}
 }
