@@ -1,6 +1,7 @@
 package com.nazi.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.nazi.model.Book;
@@ -14,7 +15,7 @@ public class BookService {
 	private BookRepository bookRepository;
 
 	public Iterable<Book> loadAll() {
-		return bookRepository.findAll();
+		return bookRepository.findAll(new Sort("name"));
 	}
 
 	public void saveBook(Book book) {
@@ -32,6 +33,10 @@ public class BookService {
 	public void lendBook(Book book, Friend friend) {
 		book.setOwner(friend);
 		bookRepository.save(book);
+	}
+
+	public Iterable<Book> search(String name) {
+		return bookRepository.findByNameContaining(name);
 	}
 
 }

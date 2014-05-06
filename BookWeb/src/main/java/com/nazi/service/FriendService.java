@@ -1,11 +1,11 @@
 package com.nazi.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.nazi.model.Friend;
 import com.nazi.persistence.FriendRepository;
-
 
 @Service
 public class FriendService {
@@ -13,7 +13,7 @@ public class FriendService {
 	private FriendRepository friendRepository;
 
 	public Iterable<Friend> loadAllFriend() {
-		return friendRepository.findAll();
+		return friendRepository.findAll(new Sort("name"));
 	}
 
 	public void saveFriend(Friend friend) {

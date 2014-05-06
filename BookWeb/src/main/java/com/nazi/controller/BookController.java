@@ -27,20 +27,14 @@ public class BookController {
 		return new ModelAndView("index", "books", books);
 	}
 
-	@RequestMapping("/addBook")
-	public String addBookPage() {
-
-		return "addBook";
-	}
-
 	@RequestMapping(value = "/saveBook", method = RequestMethod.POST)
-	public String saveBook(@RequestParam String name,
-			@RequestParam String author) {
+	public @ResponseBody
+	String saveBook(@RequestParam String name, @RequestParam String author) {
 		Book book = new Book();
 		book.setName(name);
 		book.setAuthor(author);
 		bookservice.saveBook(book);
-		return "redirect:/";
+		return "ok";
 	}
 
 	@RequestMapping(value = "/editBook")
@@ -51,22 +45,24 @@ public class BookController {
 
 	}
 
-	@RequestMapping(value = "/saveEditBook")
-	public String saveEditBook(@RequestParam Long id,
-			@RequestParam String name, @RequestParam String author) {
+	@RequestMapping(value = "/saveEditBook", method = RequestMethod.POST)
+	public @ResponseBody
+	String saveEditBook(@RequestParam Long id, @RequestParam String name,
+			@RequestParam String author) {
 		Book book = bookservice.findBook(id);
 		book.setName(name);
 		book.setAuthor(author);
 		bookservice.saveBook(book);
-		return "redirect:/";
+		return "ok";
 
 	}
 
 	@RequestMapping(value = "/deleteBook")
-	public String deleteBook(@RequestParam Long id) {
+	public @ResponseBody
+	String deleteBook(@RequestParam Long id) {
 		Book book = bookservice.findBook(id);
 		bookservice.deleteBook(book);
-		return "redirect:/";
+		return "ok";
 	}
 
 	@RequestMapping(value = "/lendBook")
@@ -79,12 +75,12 @@ public class BookController {
 	}
 
 	@RequestMapping(value = "/saveLendBook")
-	public String saveLendBook(@RequestParam Long bookid,
-			@RequestParam Long friendid) {
+	public @ResponseBody
+	String saveLendBook(@RequestParam Long bookid, @RequestParam Long friendid) {
 		Book book = bookservice.findBook(bookid);
 		Friend friend = friendService.findFriend(friendid);
 		bookservice.lendBook(book, friend);
-		return "redirect:/";
+		return "ok";
 	}
 
 	@RequestMapping(value = "/getBooks")
@@ -93,4 +89,12 @@ public class BookController {
 		Iterable<Book> books = bookservice.loadAll();
 		return books;
 	}
+
+	@RequestMapping(value = "/searchBook")
+	public @ResponseBody
+	Iterable<Book> searchBook(@RequestParam String name) {
+		Iterable<Book> books = bookservice.search(name);
+		return books;
+	}
+
 }

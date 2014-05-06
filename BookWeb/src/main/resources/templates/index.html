@@ -24,8 +24,9 @@
 
 		<div class="starter-template">
 			<h1>Manage Your Library</h1>
-			<a th:href="@{/addBook}" type="button" data-loading-text="Loading..."
-				class="btn btn-primary" id="add"> Add Book </a>
+			<button type="button" data-loading-text="Loading..."
+				class="btn btn-primary" id="add" data-toggle="modal"
+				data-target="#addModal">Add Book</button>
 		</div>
 		<table class="table">
 			<thead>
@@ -43,14 +44,18 @@
 					<td th:text="${book.name}">name</td>
 					<td th:text="${book.author}">author</td>
 					<td th:text="${book.owner}">owner</td>
-					<td><a th:href="@{/editBook(id=${book.id})}" type="button"
-						data-loading-text="Loading..." class="btn btn-primary" id="edit">
-							Edit Book </a> <a th:href="@{/deleteBook(id=${book.id})}"
-						type="button" data-loading-text="Loading..."
-						class="btn btn-primary" id="delete"> Delete Book </a> <a
-						th:href="@{/lendBook(id=${book.id})}" type="button"
-						data-loading-text="Loading..." class="btn btn-primary" id="lend">
-							Lend Book </a></td>
+					<td><button type="button" data-loading-text="Loading..."
+							class="btn btn-primary" id="edit"
+							th:onclick="|BookWeb.showEditModal(${book.id},'${book.name}','${book.author}');|">Edit
+							Book</button>
+						<button type="button" data-loading-text="Loading..."
+							class="btn btn-primary" id="delete"
+							th:onclick="|BookWeb.deleteBook(${book.id});|">Delete
+							Book</button>
+						<button
+							th:onclick="|BookWeb.showLendModal(${book.id},${book.owner!=null?book.owner.id:0});|"
+							type="button" data-loading-text="Loading..."
+							class="btn btn-primary" id="lend">Lend Book</button></td>
 
 				</tr>
 			</tbody>
@@ -58,32 +63,18 @@
 	</div>
 	<!-- /.container -->
 
-	<script type="text/x-handlebars" id="bookTemplate">
-
-    <tr>
-        <td>{{number}}</td>
-        <td>{{bookName}}</td>
-        <td>{{author}}</td>
-        <td><select>
-            <option id="1">Read</option>
-            <option id="2">Reading</option>
-            <option id="3">want to read</option>
-        </select></td>
-        <td>
-            <div class="btn-group">
-                <button class="btn btn-primary editBtn">Edit</button>
-                <button class="btn btn-primary delBtn" onclick="bookManager.delBook({{id}})">Delete</button>
-            </div>
-        </td>
-    </tr>
-</script>
+	<script th:replace="parts/bookTemplate::bookTemplate"
+		type="text/javascript"></script>
+	<div th:replace="parts/addModal::addModal"></div>
+	<div th:replace="parts/editModal::editModal"></div>
+	<div th:replace="parts/lendBook::lendModal"></div>
 	<!-- Bootstrap core JavaScript
 ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
 	<script src="/js/jquery-1.9.1.js"></script>
 	<script src="/js/bootstrap.js"></script>
 	<script src="/js/handlebars-v1.1.2.js"></script>
-	<!-- <script src="/js/main.js"></script>
- -->
+	<script src="/js/main.js"></script>
+
 </body>
 </html>

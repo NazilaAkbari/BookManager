@@ -5,8 +5,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.nazi.model.Book;
 import com.nazi.model.Friend;
 import com.nazi.service.FriendService;
 
@@ -22,20 +24,14 @@ public class FriendController {
 		return new ModelAndView("friendIndex", "friends", friends);
 	}
 
-	@RequestMapping("/addFriend")
-	public String addFriendPage() {
-
-		return "addFriend";
-	}
-
 	@RequestMapping(value = "/saveFriend", method = RequestMethod.POST)
-	public String saveFriend(@RequestParam String name,
-			@RequestParam String email) {
+	public @ResponseBody
+	String saveFriend(@RequestParam String name, @RequestParam String email) {
 		Friend friend = new Friend();
 		friend.setName(name);
 		friend.setEmail(email);
 		friendService.saveFriend(friend);
-		return "redirect:/friend";
+		return "OK";
 	}
 
 	@RequestMapping(value = "/editFriend")
@@ -47,20 +43,29 @@ public class FriendController {
 	}
 
 	@RequestMapping(value = "/saveEditFriend")
-	public String saveEditFriend(@RequestParam Long id,
-			@RequestParam String name, @RequestParam String email) {
+	public @ResponseBody
+	String saveEditFriend(@RequestParam Long id, @RequestParam String name,
+			@RequestParam String email) {
 		Friend friend = friendService.findFriend(id);
 		friend.setName(name);
 		friend.setEmail(email);
 		friendService.saveFriend(friend);
-		return "redirect:/friend";
+		return "ok";
 
 	}
 
 	@RequestMapping(value = "/deleteFriend")
-	public String deleteFriend(@RequestParam Long id) {
+	public @ResponseBody
+	String deleteFriend(@RequestParam Long id) {
 		Friend friend = friendService.findFriend(id);
 		friendService.deleteFriend(friend);
-		return "redirect:/friend";
+		return "ok";
+	}
+
+	@RequestMapping(value = "/getFriends")
+	public @ResponseBody
+	Iterable<Friend> getAllFriend() {
+		Iterable<Friend> friends = friendService.loadAllFriend();
+		return friends;
 	}
 }

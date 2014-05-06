@@ -22,6 +22,20 @@
 					<li class="activeFriend"><a th:href="@{/friend}">Friends</a></li>
 					<li><a href="#about">Read Books</a></li>
 					<li><a href="#about">Lending</a></li>
+					<li><div class="row">
+
+							<div class="col-lg-6">
+								<div class="input-group">
+									<input type="text" class="form-control" placeholder="search"
+										id="search" /> <span class="input-group-btn">
+										<button class="btn btn-default" type="button"
+											th:onclick="|BookWeb.searchBook();|">Go!</button>
+									</span>
+								</div>
+								<!-- /input-group -->
+							</div>
+							<!-- /.col-lg-6 -->
+						</div> <!-- /.row --></li>>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->
