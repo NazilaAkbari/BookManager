@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1" />
+<title>Insert title here</title>
+</head>
+<body>
+	<script th:fragment="bookTemplate" type="text/x-handlebars"
+		id="bookTemplate">
+//<![CDATA[
+
+    <tr>
+					<td>{{id}}</td>
+					<td>{{name}}</td>
+					<td>{{author}}</td>
+					<td>{{owner.name}}</td>
+                    <td><span>  
+                             {{#ifEqual readStatus 0}} Read {{/ifEqual}}
+							 {{#ifEqual readStatus 1}} Currently Reading {{/ifEqual}}
+                             {{#ifEqual readStatus 2}} Want to Read {{/ifEqual}}
+                              </span></td>
+					<td><button type="button" data-loading-text="Loading..."
+							class="btn btn-primary" id="edit"
+							onclick="BookWeb.showEditModal({{id}},'{{name}}','{{author}}');">Edit
+							Book</button> <button 
+						type="button" data-loading-text="Loading..."
+						class="btn btn-primary" id="delete" onclick="BookWeb.showDeleteModal({{id}})"> Delete Book </button> 
+{{#if owner}}
+<button type="button"	data-loading-text="Loading..." class="btn btn-primary" id="lend" onclick="BookWeb.returnBook({{id}});" >Return Book </button>
+{{else}}
+<button type="button"	data-loading-text="Loading..." class="btn btn-primary" id="lend" onclick="BookWeb.showLendModal({{id}});" >Lend Book </button>
+{{/if}}
+							</td>
+<td>{{formatedDate}}</td>
+
+				</tr>
+//]]>
+</script>
+</body>
+</html>

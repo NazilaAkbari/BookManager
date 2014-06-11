@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1" />
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:fragment="editFriendModal" class="modal fade"
+		id="editFriendModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Edit Friend</h4>
+				</div>
+				<div class="modal-body">
+					<input type="hidden" id="editfid" />
+					<table>
+						<tr>
+							<td>friend name:</td>
+							<td><div class="input-group">
+									<input type="text" class="form-control" id="editfname" />
+								</div></td>
+						</tr>
+						<tr>
+							<td>Email:</td>
+							<td><div class="input-group">
+									<input type="text" class="form-control" id="editemail" />
+								</div></td>
+						</tr>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="edit"
+						onclick="FriendWeb.editFriend();">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

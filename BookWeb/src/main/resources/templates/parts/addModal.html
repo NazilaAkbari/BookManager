@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1" />
+<title>Insert title here</title>
+</head>
+<body>
+	<div th:fragment="addModal" class="modal fade" id="addModal"
+		tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">Add your Book</h4>
+				</div>
+				<div class="modal-body">
+					<table>
+						<tr>
+							<td>book name:</td>
+							<td><div class="input-group">
+									<input type="text" class="form-control" id="name" />
+								</div></td>
+						</tr>
+						<tr>
+							<td>Author:</td>
+							<td><div class="input-group">
+									<input type="text" class="form-control" id="author" />
+								</div></td>
+						</tr>
+						<tr>
+							<td>read status:</td>
+							<td><select name="readStatus" id="readStatus"><option value="0">Read</option>
+									<option value="1">Currently reading</option>
+									<option value="2">Want to read</option>
+							</select></td>
+						</tr>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="save"
+						onclick="BookWeb.addBook();">Save changes</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

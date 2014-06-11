@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1" />
+<title>Insert title here</title>
+</head>
+<body>
+	<script th:fragment="friendTemplate" type="text/x-handlebars"
+		id="friendTemplate">
+
+    <tr>
+					<td>{{id}}</td>
+					<td>{{name}}</td>
+					<td>{{email}}</td>
+					<td><button type="button" data-loading-text="Loading..."
+							class="btn btn-primary" id="editFriend"
+							onclick="FriendWeb.showEditModal({{id}},'{{name}}','{{email}}');">Edit
+							Friend</button> <button 
+						type="button" data-loading-text="Loading..."
+						class="btn btn-primary" id="deletefriend" onclick="FriendWeb.showDeleteFriendModal({{id}})"> Delete Friend </button> 
+							</td>
+
+				</tr>
+</script>
+</body>
+</html>
