@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.nazi.model.Book;
 import com.nazi.model.Friend;
 import com.nazi.service.FriendService;
 
@@ -34,13 +33,6 @@ public class FriendController {
 		return "OK";
 	}
 
-	@RequestMapping(value = "/editFriend")
-	public ModelAndView edtiFriendPage(@RequestParam Long id) {
-		Friend friend = friendService.findFriend(id);
-		ModelAndView MAV = new ModelAndView("editFriend", "friend", friend);
-		return MAV;
-
-	}
 
 	@RequestMapping(value = "/saveEditFriend")
 	public @ResponseBody
@@ -66,6 +58,13 @@ public class FriendController {
 	public @ResponseBody
 	Iterable<Friend> getAllFriend() {
 		Iterable<Friend> friends = friendService.loadAllFriend();
+		return friends;
+	}
+
+	@RequestMapping(value = "/searchFriend")
+	public @ResponseBody
+	Iterable<Friend> searchFriend(@RequestParam String name) {
+		Iterable<Friend> friends = friendService.search(name);
 		return friends;
 	}
 }

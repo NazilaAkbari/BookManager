@@ -8,37 +8,41 @@
 	<div th:fragment="header" class="navbar navbar-inverse "
 		role="navigation">
 		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target=".navbar-collapse">
-					<span class="sr-only">Lib Manager</span> <span class="icon-bar"></span>
-					<span class="icon-bar"></span> <span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#">Lib Manager</a>
-			</div>
-			<div class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li class="active"><a th:href="@{/}">Books</a></li>
-					<li class="activeFriend"><a th:href="@{/friend}">Friends</a></li>
-					<li><a href="#about">Read Books</a></li>
-					<li><a href="#about">Lending</a></li>
-					<li><div class="row">
+			<div class="row">
 
-							<div class="col-lg-6">
-								<div class="input-group">
-									<input type="text" class="form-control" placeholder="search"
-										id="search" /> <span class="input-group-btn">
-										<button class="btn btn-default" type="button"
-											th:onclick="|BookWeb.searchBook();|">Go!</button>
-									</span>
-								</div>
-								<!-- /input-group -->
-							</div>
-							<!-- /.col-lg-6 -->
-						</div> <!-- /.row --></li>>
-				</ul>
+				<div class="col-lg-6">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse"
+							data-target=".navbar-collapse">
+							<span class="sr-only">Lib Manager</span> <span class="icon-bar"></span>
+							<span class="icon-bar"></span> <span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="#">Lib Manager</a>
+					</div>
+					<div class="collapse navbar-collapse">
+						<ul class="nav navbar-nav">
+							<li class="active"><a href="/">Books</a></li>
+							<li class="activeFriend"><a href="/friend">Friends</a></li>
+							<li><a href="#about">Read Books</a></li>
+							<li><a href="#about">Lending</a></li>
+							<li style="float: right"></li>
+						</ul>
+					</div>
+					<!--/.nav-collapse -->
+				</div>
+				<div class="col-lg-3"></div>
+				<div class="col-lg-3">
+					<div class="input-group" style="padding-top: 6px">
+						<input type="text" class="form-control" placeholder="search"
+							id="search" /> <span class="input-group-btn">
+							<button class="btn btn-default" type="button"
+								onclick="search.search();">Go!</button>
+						</span>
+					</div>
+					<!-- /input-group -->
+				</div>
+				<!-- /.col-lg-6 -->
 			</div>
-			<!--/.nav-collapse -->
 		</div>
 	</div>
 </body>

@@ -35,7 +35,9 @@
 					<th>Book Name</th>
 					<th>Author</th>
 					<th>Owner</th>
+					<th>Read Status</th>
 					<th style="text-align: center;">Action</th>
+					<th>Date</th>
 				</tr>
 			</thead>
 			<tbody id="bookContainer">
@@ -44,18 +46,26 @@
 					<td th:text="${book.name}">name</td>
 					<td th:text="${book.author}">author</td>
 					<td th:text="${book.owner}">owner</td>
+					<td th:if="${book.readStatus == 0}">READ</td>
+					<td th:if="${book.readStatus == 1}">Currently reading</td>
+					<td th:if="${book.readStatus == 2}">Want to Read</td>
 					<td><button type="button" data-loading-text="Loading..."
 							class="btn btn-primary" id="edit"
 							th:onclick="|BookWeb.showEditModal(${book.id},'${book.name}','${book.author}');|">Edit
 							Book</button>
 						<button type="button" data-loading-text="Loading..."
-							class="btn btn-primary" id="delete"
-							th:onclick="|BookWeb.deleteBook(${book.id});|">Delete
+							class="btn btn-primary" id="deleteBook"
+							th:onclick="|BookWeb.showDeleteModal(${book.id});|">Delete
 							Book</button>
-						<button
+						<button th:if="${book.owner==null}"
 							th:onclick="|BookWeb.showLendModal(${book.id},${book.owner!=null?book.owner.id:0});|"
 							type="button" data-loading-text="Loading..."
-							class="btn btn-primary" id="lend">Lend Book</button></td>
+							class="btn btn-primary" id="lend">Lend Book</button>
+						<button th:if="${book.owner!=null}"
+							th:onclick="|BookWeb.returnBook(${book.id})|" type="button"
+							data-loading-text="Loading..." class="btn btn-primary"
+							id="return">Book returned</button></td>
+					<td th:text="${book.formatedDate}"></td>
 
 				</tr>
 			</tbody>
@@ -68,6 +78,7 @@
 	<div th:replace="parts/addModal::addModal"></div>
 	<div th:replace="parts/editModal::editModal"></div>
 	<div th:replace="parts/lendBook::lendModal"></div>
+	<div th:replace="parts/deleteModal::deleteModal"></div>
 	<!-- Bootstrap core JavaScript
 ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->

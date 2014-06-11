@@ -1,6 +1,13 @@
 var BookWeb = {
 	reRenderBooks : function() {
 		$('#bookContainer').html('');
+		Handlebars.registerHelper('ifEqual', function(s1, s2, options) {
+			if (s1 == s2) {
+				return options.fn(this)
+			} else {
+				return options.inverse(this);
+			}
+		});
 		$.ajax({
 			url : "/getBooks"
 		}).done(function(result) {
@@ -17,12 +24,14 @@ var BookWeb = {
 	addBook : function() {
 		var name = $('#name').val();
 		var author = $('#author').val();
+		var readStatus = $('#readStatus').val();
 		$.ajax({
 			type : "POST",
 			url : "/saveBook",
 			data : {
 				name : name,
-				author : author
+				author : author,
+				readStatus : readStatus
 			}
 		}).done(function() {
 			$('#addModal').modal('hide');
@@ -43,13 +52,15 @@ var BookWeb = {
 		var id = $('#eid').val();
 		var name = $('#ename').val();
 		var author = $('#eauthor').val();
+		var readStatus = $('#editReadStatus').val();
 		$.ajax({
 			type : "POST",
 			url : "/saveEditBook",
 			data : {
 				id : id,
 				name : name,
-				author : author
+				author : author,
+				readStatus : readStatus
 			}
 		}).done(function() {
 			$('#editModal').modal('hide');
@@ -57,7 +68,7 @@ var BookWeb = {
 		});
 	},
 
-	showLendModal : function(bookId, owner) {
+	showLendModal : function(bookId) {
 		$('#bookId').val(bookId);
 		$.ajax({
 			url : "/getFriends"
@@ -69,8 +80,6 @@ var BookWeb = {
 						$('#owner').append(
 								'<option value="' + model.id + '" >'
 										+ model.name + '</option>');
-						$('#owner').val(owner);
-
 					}
 				});
 		$('#lendModal').modal('show');
@@ -93,7 +102,25 @@ var BookWeb = {
 		});
 	},
 
-	deleteBook : function(id) {
+	returnBook : function(bookId) {
+		$.ajax({
+			type : "POST",
+			url : "/returnBook",
+			data : {
+				id : bookId
+			}
+		}).done(function() {
+			BookWeb.reRenderBooks();
+		})
+	},
+
+	showDeleteModal : function(bookId) {
+		$('#delId').val(bookId);
+		$('#deleteModal').modal('show');
+	},
+
+	deleteBook : function() {
+		var id = $('#delId').val();
 		$.ajax({
 			type : "POST",
 			url : "/deleteBook",
@@ -103,11 +130,36 @@ var BookWeb = {
 		}).done(function(result) {
 			var model = result;
 			$('#delete').remove(model);
+			$('#deleteModal').modal('hide');
 			BookWeb.reRenderBooks();
 		})
 	},
 
-	searchBook : function(name) {
+	reRenderReadBooks : function() {
+		$('#bookContainer').html('');
+		Handlebars.registerHelper('ifEqual', function(s1, s2, options) {
+			if (s1 == s2) {
+				return options.fn(this)
+			} else {
+				return options.inverse(this);
+			}
+		});
+		$.ajax({
+			url : "/getBooks"
+		}).done(function(result) {
+			var templateHtml = $('#bookTemplate').html();
+			var template = Handlebars.compile(templateHtml);
+			for ( var i in result) {
+				var model = result[i];
+				var bookHtml = template(model);
+				$('#bookContainer').append(bookHtml);
+			}
+		});
+	}
+};
+
+var search = {
+	search : function(name) {
 		var name = $('#search').val();
 		$('#bookContainer').html('');
 		$.ajax({
@@ -117,15 +169,16 @@ var BookWeb = {
 				name : name
 			}
 		}).done(function(result) {
+
+			var templateHtml = $('#bookTemplate').html();
+			var template = Handlebars.compile(templateHtml);
+			var currentLocation = window.location;
 			for ( var i in result) {
-				var templateHtml = $('#bookTemplate').html();
-				var template = Handlebars.compile(templateHtml);
-				for ( var i in result) {
-					var model = result[i];
-					var bookHtml = template(model);
-					$('#bookContainer').append(bookHtml);
-				}
+				var model = result[i];
+				var bookHtml = template(model);
+				$('#bookContainer').append(bookHtml);
 			}
+
 		})
 	}
-};
+}

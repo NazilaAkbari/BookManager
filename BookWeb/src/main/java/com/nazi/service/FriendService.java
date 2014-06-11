@@ -27,4 +27,8 @@ public class FriendService {
 	public void deleteFriend(Friend friend) {
 		friendRepository.delete(friend);
 	}
+
+	public Iterable<Friend> search(String name) {
+		return friendRepository.findByNameContaining(name);
+	}
 }

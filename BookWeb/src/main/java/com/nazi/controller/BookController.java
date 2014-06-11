@@ -29,29 +29,24 @@ public class BookController {
 
 	@RequestMapping(value = "/saveBook", method = RequestMethod.POST)
 	public @ResponseBody
-	String saveBook(@RequestParam String name, @RequestParam String author) {
+	String saveBook(@RequestParam String name, @RequestParam String author,
+			@RequestParam int readStatus) {
 		Book book = new Book();
 		book.setName(name);
 		book.setAuthor(author);
+		book.setReadStatus(readStatus);
 		bookservice.saveBook(book);
 		return "ok";
-	}
-
-	@RequestMapping(value = "/editBook")
-	public ModelAndView editBookPage(@RequestParam Long id) {
-		Book book = bookservice.findBook(id);
-		ModelAndView MAV = new ModelAndView("editBook", "book", book);
-		return MAV;
-
 	}
 
 	@RequestMapping(value = "/saveEditBook", method = RequestMethod.POST)
 	public @ResponseBody
 	String saveEditBook(@RequestParam Long id, @RequestParam String name,
-			@RequestParam String author) {
+			@RequestParam String author, @RequestParam int readStatus) {
 		Book book = bookservice.findBook(id);
 		book.setName(name);
 		book.setAuthor(author);
+		book.setReadStatus(readStatus);
 		bookservice.saveBook(book);
 		return "ok";
 
@@ -95,6 +90,19 @@ public class BookController {
 	Iterable<Book> searchBook(@RequestParam String name) {
 		Iterable<Book> books = bookservice.search(name);
 		return books;
+	}
+
+	@RequestMapping(value = "/returnBook")
+	public @ResponseBody
+	String returnBook(@RequestParam Long id) {
+		bookservice.returnBook(id);
+		return "OK";
+	}
+
+	@RequestMapping(value = "/readBooks")
+	public @ResponseBody
+	Iterable<Book> loadAllReadBooks() {
+		return bookservice.loadAllReadBooks();
 	}
 
 }
