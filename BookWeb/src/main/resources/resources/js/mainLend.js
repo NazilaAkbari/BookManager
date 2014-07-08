@@ -2,7 +2,7 @@ var LendBookWeb = {
 	reRenderBooks : function() {
 		$('#lendBookContainer').html('');
 		$.ajax({
-			url : "/allLendBooks"
+			url : "/lendBooks"
 		}).done(function(result) {
 			var templateHtml = $('#lendTemplate').html();
 			var template = Handlebars.compile(templateHtml);
@@ -24,7 +24,7 @@ var LendBookWeb = {
 		}).done(function() {
 			LendBookWeb.reRenderBooks();
 		})
-	},
+	}
 
 };
 
