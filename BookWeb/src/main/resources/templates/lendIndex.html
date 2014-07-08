@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+
+<title>Library Manager</title>
+
+<!-- Bootstrap core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet" />
+
+
+
+</head>
+
+<body>
+
+	<div th:replace="parts/HeadBanner::header"></div>
+
+	<div class="container">
+
+		<div class="starter-template">
+			<h1>Manage Your Library</h1>
+
+		</div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>number</th>
+					<th>Book Name</th>
+					<th>Author</th>
+					<th>Owner</th>
+					<th style="text-align: center;">Action</th>
+					<th>Date</th>
+				</tr>
+			</thead>
+			<tbody id="lendBookContainer">
+				<tr th:each="book : ${books}">
+					<td th:text="${book.id}">id</td>
+					<td th:text="${book.name}">name</td>
+					<td th:text="${book.author}">author</td>
+					<td th:text="${book.owner}">owner</td>
+					<td>
+						<button th:if="${book.owner!=null}"
+							th:onclick="|LendBookWeb.returnBook(${book.id})|" type="button"
+							data-loading-text="Loading..." class="btn btn-primary"
+							id="return">Book returned</button>
+					</td>
+					<td th:text="${book.formatedDate}"></td>
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<!-- /.container -->
+
+	<script th:replace="parts/lendTemplate::lendTemplate"
+		type="text/javascript"></script>
+	<div th:replace="parts/lendBook::lendModal"></div>
+	<!-- Bootstrap core JavaScript
+================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="/js/jquery-1.9.1.js"></script>
+	<script src="/js/bootstrap.js"></script>
+	<script src="/js/handlebars-v1.1.2.js"></script>
+	<script src="/js/mainLend.js"></script>
+
+</body>
+</html>

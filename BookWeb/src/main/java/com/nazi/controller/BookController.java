@@ -105,4 +105,10 @@ public class BookController {
 		return bookservice.loadAllReadBooks();
 	}
 
+	@RequestMapping("/allLendBooks")
+	public ModelAndView lendIndex() {
+		Iterable<Book> books = bookservice.loadLendBook();
+		return new ModelAndView("lendIndex", "books", books);
+	}
+
 }

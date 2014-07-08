@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1" />
+<title>Insert title here</title>
+</head>
+<body>
+	<script th:fragment="lendTemplate" type="text/x-handlebars"
+		id="lendTemplate">
+//<![CDATA[
+
+    <tr>
+					<td>{{id}}</td>
+					<td>{{name}}</td>
+					<td>{{author}}</td>
+					<td>{{owner.name}}</td>
+					<td>
+<button type="button"	data-loading-text="Loading..." class="btn btn-primary" id="lend" onclick="LendBookWeb.returnBook({{id}});" >Return Book </button>
+
+							</td>
+<td>{{formatedDate}}</td>
+
+				</tr>
+//]]>
+</script>
+</body>
+</html>

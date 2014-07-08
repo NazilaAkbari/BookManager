@@ -66,4 +66,20 @@ public class BookService {
 		return readBooks;
 
 	}
+
+	public Iterable<Book> loadLendBook() {
+		Iterable<Book> books = bookRepository.findAll();
+		Iterator<Book> bookIterator = books.iterator();
+		List<Book> lendBooks = new ArrayList<Book>();
+		
+		while (bookIterator.hasNext()) {
+			Book book = bookIterator.next();
+			if (book.getOwner()!=null) {
+				lendBooks.add(book);
+			}
+		}
+		
+		
+		return lendBooks;
+	}
 }
