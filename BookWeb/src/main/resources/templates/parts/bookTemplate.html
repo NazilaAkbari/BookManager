@@ -26,7 +26,7 @@
 						type="button" data-loading-text="Loading..."
 						class="btn btn-primary" id="delete" onclick="BookWeb.showDeleteModal({{id}})"> Delete Book </button> 
 {{#if owner}}
-<button type="button"	data-loading-text="Loading..." class="btn btn-primary" id="lend" onclick="BookWeb.returnBook({{id}});" >Return Book </button>
+<button type="button"	data-loading-text="Loading..." class="btn btn-primary" id="lend" onclick="BookWeb.returnBook({{id}});" >Returned</button>
 {{else}}
 <button type="button"	data-loading-text="Loading..." class="btn btn-primary" id="lend" onclick="BookWeb.showLendModal({{id}});" >Lend Book </button>
 {{/if}}

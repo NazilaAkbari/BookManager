@@ -162,6 +162,13 @@ var search = {
 	search : function(name) {
 		var name = $('#search').val();
 		$('#bookContainer').html('');
+		Handlebars.registerHelper('ifEqual', function(s1, s2, options) {
+			if (s1 == s2) {
+				return options.fn(this)
+			} else {
+				return options.inverse(this);
+			}
+		});
 		$.ajax({
 			type : "POST",
 			url : "/searchBook",
@@ -179,6 +186,6 @@ var search = {
 				$('#bookContainer').append(bookHtml);
 			}
 
-		})
+		});
 	}
 }
