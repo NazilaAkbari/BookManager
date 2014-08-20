@@ -5,21 +5,25 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form>
+	<div>
+
+
 		<div>
 			<input name="username" id="username" type="text" />
 		</div>
 		<div>
 			<input name="password" id="password" type="password" />
 		</div>
-		<div>
-			<input name="email" id="email" type="text" />
-		</div>
 		<div class="form-group">
-			<button type="button" id="saveUser" onclick="User.addUser();">Save
-				changes</button>
+			<button type="submit" id="saveUser" onclick="User.addUser();">Submit</button>
+
 		</div>
-	</form>
+	</div>
+	
+	<script src="/js/jquery-1.9.1.js"></script>
+	<script src="/js/bootstrap.js"></script>
+	<script src="/js/handlebars-v1.1.2.js"></script>
 	<script src="/js/mainUser.js"></script>
+
 </body>
 </html>

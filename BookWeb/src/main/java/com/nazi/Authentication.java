@@ -16,8 +16,8 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 public class Authentication extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/css/**").permitAll()
-				.anyRequest().authenticated();
+		http.authorizeRequests().antMatchers("/css/**","/signUp","/saveUser","/js/**")
+				.permitAll().anyRequest().authenticated();
 
 		http.formLogin().loginPage("/login").permitAll().and().csrf().disable()
 				.logout().permitAll();
@@ -32,9 +32,9 @@ public class Authentication extends WebSecurityConfigurerAdapter {
 		auth.jdbcAuthentication()
 				.dataSource(dataSource)
 				.usersByUsernameQuery(
-						"select username,password, enabled from user_tbl where username=?")
+						"select username, password, enabled from user_tbl where username=?")
 				.authoritiesByUsernameQuery(
-						"select username, role from user_role where username = ?");
+						"select username, user_role from user_tbl where username = ?");
 
 	}
 
