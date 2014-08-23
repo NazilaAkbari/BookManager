@@ -16,7 +16,9 @@ public class User {
 
 	private String username;
 	private String password;
+	private String confirmPassword;
 	private String userRole;
+	private String name;
 	private boolean enabled;
 
 	public Long getId() {
@@ -43,6 +45,14 @@ public class User {
 		this.password = password;
 	}
 
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
+	}
+
 	public boolean isEnabled() {
 		return enabled;
 	}
@@ -57,6 +67,14 @@ public class User {
 
 	public void setUserRole(String userRole) {
 		this.userRole = userRole;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

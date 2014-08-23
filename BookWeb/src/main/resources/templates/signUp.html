@@ -2,24 +2,83 @@
 <html>
 <head>
 <meta charset="ISO-8859-1" />
-<title>Insert title here</title>
+<title>Registration Form</title>
+
+<link href="/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-	<div>
+	<div class="col-lg-3 col-md-push-3">
+		<div class="col-md-12 col-md-push-3"></div>
+	</div>
+	<div class="container">
+		<div class="starter-template">
+			<h1>Registration Form</h1>
 
-
-		<div>
-			<input name="username" id="username" type="text" />
 		</div>
-		<div>
-			<input name="password" id="password" type="password" />
-		</div>
-		<div class="form-group">
-			<button type="submit" id="saveUser" onclick="User.addUser();">Submit</button>
+		<div class="row">
+			<form role="form">
+				<div class="col-lg-6">
+					<div class="well well-sm">
+						<strong><span class="glyphicon glyphicon-asterisk"></span>Required
+							Field</strong>
+					</div>
+					<div class="form-group">
+						<label for="InputEmail">Enter Your Name</label>
+						<div class="input-group">
+							<input type="text" class="form-control" id="name" name="name"
+								placeholder="Enter Name" required="true" /> <span
+								class="input-group-addon"><span
+								class="glyphicon glyphicon-asterisk"></span></span>
+						</div>
+					</div>
 
+					<div class="form-group">
+						<label for="InputEmail">Enter Email</label>
+						<div class="input-group">
+							<input type="email" class="form-control" id="username"
+								name="username" placeholder="Enter Email" required="true" /> <span
+								class="input-group-addon"><span
+								class="glyphicon glyphicon-asterisk"></span></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="InputName">Enter Password</label>
+						<div class="input-group">
+							<input type="password" class="form-control" name="password"
+								id="password" placeholder="Enter Password" required="true" /> <span
+								class="input-group-addon"><span
+								class="glyphicon glyphicon-asterisk"></span></span>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="InputEmail">Confirm Password</label>
+						<div class="input-group">
+							<input type="password" class="form-control" id="confirmPassword"
+								name="IconfirmPassword" placeholder="Confirm Password"
+								required="true" /> <span class="input-group-addon"><span
+								class="glyphicon glyphicon-asterisk"></span></span>
+						</div>
+					</div>
+
+					<input type="submit" name="submit" id="submit" value="Submit"
+						class="btn btn-info pull-right" onclick="User.addUser();" />
+				</div>
+			</form>
+			<div class="col-lg-5 col-md-push-1">
+				<div class="col-md-12">
+					<div class="alert alert-success">
+						<strong><span class="glyphicon glyphicon-ok"></span>
+							Success! A confirmation e-mail will be send to your email</strong>
+					</div>
+					<div class="alert alert-danger">
+						<span class="glyphicon glyphicon-remove"></span><strong>
+							Error! Please check all page inputs.</strong>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
-	
+
 	<script src="/js/jquery-1.9.1.js"></script>
 	<script src="/js/bootstrap.js"></script>
 	<script src="/js/handlebars-v1.1.2.js"></script>

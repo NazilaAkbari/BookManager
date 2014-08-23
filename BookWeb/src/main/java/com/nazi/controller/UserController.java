@@ -1,7 +1,6 @@
 package com.nazi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.nazi.model.User;
 import com.nazi.service.UserService;
+import com.nazi.util.SendMail;
 
 @Controller
 public class UserController {
@@ -23,11 +23,22 @@ public class UserController {
 		return new ModelAndView("signUp");
 	}
 
-	@RequestMapping(value = "/saveUser", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/saveUser", method = RequestMethod.POST)
 	public @ResponseBody
 	String saveBook(@RequestBody User user) {
+		SendMail send = new SendMail();
 		user.setUserRole("USER");
-		userService.saveUser(user);
-		return "ok";
+		String password = user.getPassword();
+		String confirmPassword = user.getConfirmPassword();
+		if (password.equals(confirmPassword)) {
+			userService.saveUser(user);
+			send.email(user);
+			return "ok";
+		} else {
+			System.out.println("not ok");
+
+		}
+		return null;
+
 	}
 }
