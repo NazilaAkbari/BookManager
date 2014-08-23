@@ -10,14 +10,10 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.nazi.model.User;
-import com.nazi.persistence.UserRepository;
 
 public class SendMail {
-	
-	
+
 	public void email(User user) {
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
@@ -36,7 +32,7 @@ public class SendMail {
 				});
 
 		try {
-			String email=user.getUsername();
+			String email = user.getUsername();
 
 			Message message = new MimeMessage(session);
 			message.setFrom(new InternetAddress("nazila.akbari87@gmail.com"));
