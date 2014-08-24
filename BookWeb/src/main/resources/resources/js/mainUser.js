@@ -13,9 +13,25 @@ var User = {
 			url : '/saveUser',
 			data : JSON.stringify(user),
 			success : function(data) {
-				console.log(data);
+				window.location = "/success";
+			},
+			error : function(xhr, errorType, exception) {
+				if (xhr.status == 400) {
+
+					var errorMessage = exception || xhr.statusText;
+					$('#fail').show();
+					$('#userExist').hide();
+
+				} else if (xhr.status == 406) {
+
+					var errorMessage = exception || xhr.statusText;
+					$('#userExist').show();
+					$('#fail').hide();
+				}
+
 			},
 			contentType : "application/json"
 		});
+
 	}
 }

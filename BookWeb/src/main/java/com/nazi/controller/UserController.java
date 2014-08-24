@@ -1,10 +1,13 @@
 package com.nazi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,21 +27,37 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/saveUser", method = RequestMethod.POST)
-	public @ResponseBody
-	String saveBook(@RequestBody User user) {
+	public ResponseEntity<String> saveUser(@RequestBody User user) {
 		SendMail send = new SendMail();
 		user.setUserRole("USER");
 		String password = user.getPassword();
+		String username = user.getUsername();
+		Iterable<User> list = searchUser(username);
+		String pattern = "(^.{8,}$)";
 		String confirmPassword = user.getConfirmPassword();
-		if (password.equals(confirmPassword)) {
-			userService.saveUser(user);
-			send.email(user);
-			return "ok";
-		} else {
-			System.out.println("not ok");
-
+		if (list.iterator().hasNext()) {
+			return new ResponseEntity<String>(HttpStatus.NOT_ACCEPTABLE);
 		}
-		return null;
+		if (password.matches(pattern)) {
+			if (password.equals(confirmPassword)) {
+				userService.saveUser(user);
+				send.email(user);
+				return new ResponseEntity<String>(HttpStatus.OK);
+			}
+		}
 
+		return new ResponseEntity<String>(HttpStatus.BAD_REQUEST);
+	}
+
+	@RequestMapping("/success")
+	public String successRegister() {
+		return "successSignUp";
+	}
+
+	@RequestMapping(value = "/searchUser")
+	public @ResponseBody
+	Iterable<User> searchUser(@RequestParam String username) {
+		Iterable<User> user = userService.search(username);
+		return user;
 	}
 }

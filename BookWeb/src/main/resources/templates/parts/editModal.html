@@ -19,24 +19,36 @@
 					<input type="hidden" id="eid" />
 					<table>
 						<tr>
-							<td>book name:</td>
-							<td><div class="input-group">
-									<input type="text" class="form-control" id="ename" />
-								</div></td>
+							<div class="form-group">
+								<label for="InputAuthor">Enter Book Name</label>
+								<div class="input-group">
+									<input type="text" class="form-control" id="ename" name="ename"
+										placeholder="Book Name" required="required" /> <span
+										class="input-group-addon"></span>
+								</div>
+							</div>
 						</tr>
 						<tr>
-							<td>Author:</td>
-							<td><div class="input-group">
-									<input type="text" class="form-control" id="eauthor" />
-								</div></td>
+							<div class="form-group">
+								<label for="InputAuthor">Enter Author Name</label>
+								<div class="input-group">
+									<input type="text" class="form-control" id="eauthor"
+										name="eauthor" placeholder="Author Name" required="required" />
+									<span class="input-group-addon"></span>
+								</div>
+							</div>
 						</tr>
 						<tr>
-							<td>read status:</td>
-							<td><select name="readStatus" id="editReadStatus"><option
-										value="0">Read</option>
-									<option value="1">Currently reading</option>
-									<option value="2">Want to read</option>
-							</select></td>
+							<div class="form-group">
+								<label for="InputAuthor">Read Status</label>
+								<div>
+									<select name="readStatus" id="editReadStatus"><option
+											value="0">Read</option>
+										<option value="1">Currently reading</option>
+										<option value="2">Want to read</option>
+									</select>
+								</div>
+							</div>
 						</tr>
 					</table>
 				</div>

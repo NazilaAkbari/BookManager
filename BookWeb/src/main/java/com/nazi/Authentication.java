@@ -16,7 +16,7 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 public class Authentication extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers("/css/**","/signUp","/saveUser","/js/**")
+		http.authorizeRequests().antMatchers("/css/**","/signUp","/success","/saveUser","/js/**")
 				.permitAll().anyRequest().authenticated();
 
 		http.formLogin().loginPage("/login").permitAll().and().csrf().disable()

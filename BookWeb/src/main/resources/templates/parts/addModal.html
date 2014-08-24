@@ -18,23 +18,38 @@
 				<div class="modal-body">
 					<table>
 						<tr>
-							<td>book name:</td>
-							<td><div class="input-group">
-									<input type="text" class="form-control" id="name" />
-								</div></td>
+							<div class="form-group">
+								<label for="InputName">Enter Book Name</label>
+								<div class="input-group">
+									<input type="text" class="form-control" id="name" name="name"
+										placeholder="Enter Book Name" required="required" /> <span
+										class="input-group-addon"></span>
+								</div>
+							</div>
 						</tr>
 						<tr>
-							<td>Author:</td>
-							<td><div class="input-group">
-									<input type="text" class="form-control" id="author" />
-								</div></td>
+							<div class="form-group">
+								<label for="InputAuthor">Enter Author Name</label>
+								<div class="input-group">
+									<input type="text" class="form-control" id="author"
+										name="author" placeholder="Author Name" required="required" />
+									<span class="input-group-addon"></span>
+								</div>
+							</div>
 						</tr>
 						<tr>
-							<td>read status:</td>
-							<td><select name="readStatus" id="readStatus"><option value="0">Read</option>
-									<option value="1">Currently reading</option>
-									<option value="2">Want to read</option>
-							</select></td>
+							<div class="form-group">
+								<label for="InputAuthor">Read Status</label>
+								<div>
+									<select name="readStatus" id="readStatus"><option
+											value="0">Read</option>
+										<option value="1">Currently reading</option>
+										<option value="2">Want to read</option>
+									</select>
+
+								</div>
+							</div>
+
 						</tr>
 					</table>
 				</div>

@@ -16,7 +16,7 @@
 
 		</div>
 		<div class="row">
-			<form role="form">
+			<form role="form" onsubmit="return false">
 				<div class="col-lg-6">
 					<div class="well well-sm">
 						<strong><span class="glyphicon glyphicon-asterisk"></span>Required
@@ -26,7 +26,7 @@
 						<label for="InputEmail">Enter Your Name</label>
 						<div class="input-group">
 							<input type="text" class="form-control" id="name" name="name"
-								placeholder="Enter Name" required="true" /> <span
+								placeholder="Enter Name" required="required" /> <span
 								class="input-group-addon"><span
 								class="glyphicon glyphicon-asterisk"></span></span>
 						</div>
@@ -36,8 +36,8 @@
 						<label for="InputEmail">Enter Email</label>
 						<div class="input-group">
 							<input type="email" class="form-control" id="username"
-								name="username" placeholder="Enter Email" required="true" /> <span
-								class="input-group-addon"><span
+								name="username" placeholder="Enter Email" required="required" />
+							<span class="input-group-addon"><span
 								class="glyphicon glyphicon-asterisk"></span></span>
 						</div>
 					</div>
@@ -45,17 +45,21 @@
 						<label for="InputName">Enter Password</label>
 						<div class="input-group">
 							<input type="password" class="form-control" name="password"
-								id="password" placeholder="Enter Password" required="true" /> <span
-								class="input-group-addon"><span
+								id="password" placeholder="Enter Password" required="required" />
+							<span class="input-group-addon"><span
 								class="glyphicon glyphicon-asterisk"></span></span>
+
 						</div>
+
+
 					</div>
+
 					<div class="form-group">
 						<label for="InputEmail">Confirm Password</label>
 						<div class="input-group">
 							<input type="password" class="form-control" id="confirmPassword"
 								name="IconfirmPassword" placeholder="Confirm Password"
-								required="true" /> <span class="input-group-addon"><span
+								required="required" /> <span class="input-group-addon"><span
 								class="glyphicon glyphicon-asterisk"></span></span>
 						</div>
 					</div>
@@ -66,13 +70,18 @@
 			</form>
 			<div class="col-lg-5 col-md-push-1">
 				<div class="col-md-12">
-					<div class="alert alert-success">
-						<strong><span class="glyphicon glyphicon-ok"></span>
-							Success! A confirmation e-mail will be send to your email</strong>
-					</div>
-					<div class="alert alert-danger">
+					<div class="alert alert-danger" style="display: none;" id="fail">
 						<span class="glyphicon glyphicon-remove"></span><strong>
 							Error! Please check all page inputs.</strong>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-5 col-md-push-1">
+				<div class="col-md-12">
+					<div class="alert alert-danger" style="display: none;"
+						id="userExist">
+						<span class="glyphicon glyphicon-remove"></span><strong>
+							The Email already exist</strong>
 					</div>
 				</div>
 			</div>
