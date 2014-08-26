@@ -5,7 +5,7 @@ var User = {
 			username : $('#username').val(),
 			password : $('#password').val(),
 			confirmPassword : $('#confirmPassword').val(),
-			enabled : true
+			enabled : false
 		}
 		console.log("before calling post: " + JSON.stringify(user));
 		$.ajax({

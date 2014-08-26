@@ -39,7 +39,7 @@ public class SendMail {
 			message.setRecipients(Message.RecipientType.TO,
 					InternetAddress.parse(email));
 			message.setSubject("Registration");
-			message.setText("hello");
+			message.setText("localhost:8080/confirm?id=" + user.getrId());
 
 			Transport.send(message);
 

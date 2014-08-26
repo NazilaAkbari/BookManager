@@ -1,5 +1,7 @@
 package com.nazi.controller;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +30,7 @@ public class UserController {
 
 	@RequestMapping(value = "/saveUser", method = RequestMethod.POST)
 	public ResponseEntity<String> saveUser(@RequestBody User user) {
+		UUID rid = UUID.randomUUID();
 		SendMail send = new SendMail();
 		user.setUserRole("USER");
 		String password = user.getPassword();
@@ -40,6 +43,7 @@ public class UserController {
 		}
 		if (password.matches(pattern)) {
 			if (password.equals(confirmPassword)) {
+				user.setrId(rid);
 				userService.saveUser(user);
 				send.email(user);
 				return new ResponseEntity<String>(HttpStatus.OK);
