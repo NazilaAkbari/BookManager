@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.nazi.model.User;
+import com.nazi.service.BookService;
 import com.nazi.service.UserService;
 import com.nazi.util.SendMail;
 
@@ -23,8 +24,11 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	private BookService bookservice;
+
 	@RequestMapping("/signUp")
-	public ModelAndView index() {
+	public ModelAndView signUp() {
 		return new ModelAndView("signUp");
 	}
 
@@ -33,6 +37,7 @@ public class UserController {
 		UUID rid = UUID.randomUUID();
 		SendMail send = new SendMail();
 		user.setUserRole("USER");
+		user.setEnabled(false);
 		String password = user.getPassword();
 		String username = user.getUsername();
 		Iterable<User> list = searchUser(username);
@@ -63,5 +68,14 @@ public class UserController {
 	Iterable<User> searchUser(@RequestParam String username) {
 		Iterable<User> user = userService.search(username);
 		return user;
+	}
+
+	@RequestMapping("/confirm")
+	public String confirm(@RequestParam String id) {
+		UUID u = UUID.fromString(id);
+		User user = userService.searchRId(u).iterator().next();
+		user.setEnabled(true);
+		userService.saveUser(user);
+		return "redirect:/";
 	}
 }
