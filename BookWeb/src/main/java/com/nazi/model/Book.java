@@ -29,6 +29,9 @@ public class Book {
 	@ManyToOne
 	private Friend owner;
 
+	@ManyToOne
+	private User user;
+
 	@Column
 	private Date date;
 
@@ -84,6 +87,14 @@ public class Book {
 
 	public void setOwner(Friend owner) {
 		this.owner = owner;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	@Override
