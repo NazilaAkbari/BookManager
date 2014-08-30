@@ -6,21 +6,25 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.nazi.model.Book;
 import com.nazi.model.Friend;
+import com.nazi.model.User;
 import com.nazi.persistence.BookRepository;
+import com.nazi.persistence.UserRepository;
 
 @Service
 public class BookService {
 
 	@Autowired
 	private BookRepository bookRepository;
+	@Autowired
+	private UserRepository userRepository;
 
-	public Iterable<Book> loadAll() {
-		return bookRepository.findAll(new Sort("name"));
+	public Iterable<Book> loadAllByUser(String username) {
+		Iterable<User> user = userRepository.findByUsername(username);
+		return bookRepository.findByUser(user);
 	}
 
 	public void saveBook(Book book) {
@@ -41,8 +45,9 @@ public class BookService {
 		bookRepository.save(book);
 	}
 
-	public Iterable<Book> search(String name) {
-		return bookRepository.findByNameContaining(name);
+	public Iterable<Book> search(String name, String username) {
+		Iterable<User> user = userRepository.findByUsername(username);
+		return bookRepository.findByNameAndUser(name, user);
 	}
 
 	public void returnBook(Long id) {
@@ -66,19 +71,19 @@ public class BookService {
 
 	}
 
-	public Iterable<Book> loadLendBook() {
-		Iterable<Book> books = bookRepository.findAll();
+	public Iterable<Book> loadLendBook(String username) {
+		Iterable<User> user = userRepository.findByUsername(username);
+		Iterable<Book> books = bookRepository.findByUser(user);
 		Iterator<Book> bookIterator = books.iterator();
 		List<Book> lendBooks = new ArrayList<Book>();
-		
+
 		while (bookIterator.hasNext()) {
 			Book book = bookIterator.next();
-			if (book.getOwner()!=null) {
+			if (book.getOwner() != null) {
 				lendBooks.add(book);
 			}
 		}
-		
-		
+
 		return lendBooks;
 	}
 }

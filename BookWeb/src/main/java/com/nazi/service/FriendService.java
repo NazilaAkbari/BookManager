@@ -1,19 +1,25 @@
 package com.nazi.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.nazi.model.Friend;
+import com.nazi.model.User;
 import com.nazi.persistence.FriendRepository;
+import com.nazi.persistence.UserRepository;
 
 @Service
 public class FriendService {
+
 	@Autowired
 	private FriendRepository friendRepository;
 
-	public Iterable<Friend> loadAllFriend() {
-		return friendRepository.findAll(new Sort("name"));
+	@Autowired
+	private UserRepository userRepository;
+
+	public Iterable<Friend> loadAllFriend(String username) {
+		Iterable<User> user = userRepository.findByUsername(username);
+		return friendRepository.findByUser(user);
 	}
 
 	public void saveFriend(Friend friend) {
@@ -28,7 +34,8 @@ public class FriendService {
 		friendRepository.delete(friend);
 	}
 
-	public Iterable<Friend> search(String name) {
-		return friendRepository.findByNameContaining(name);
+	public Iterable<Friend> search(String name, String username) {
+		Iterable<User> user = userRepository.findByUsername(username);
+		return friendRepository.findByNameAndUser(name, user);
 	}
 }

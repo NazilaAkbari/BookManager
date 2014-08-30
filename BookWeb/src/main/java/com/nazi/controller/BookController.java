@@ -12,8 +12,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.nazi.model.Book;
 import com.nazi.model.Friend;
+import com.nazi.model.User;
 import com.nazi.service.BookService;
 import com.nazi.service.FriendService;
+import com.nazi.service.UserService;
 
 @Controller
 public class BookController {
@@ -22,25 +24,42 @@ public class BookController {
 	private BookService bookservice;
 	@Autowired
 	private FriendService friendService;
+	@Autowired
+	private UserService userService;
 
 	@RequestMapping("/")
 	public ModelAndView index() {
 		Authentication auth = SecurityContextHolder.getContext()
 				.getAuthentication();
-		auth.getName();
-		System.out.println(auth.getName());
-		Iterable<Book> books = bookservice.loadAll();
+		String username = auth.getName();
+		Iterable<Book> books = bookservice.loadAllByUser(username);
 		return new ModelAndView("index", "books", books);
+	}
+
+	@RequestMapping(value = "/getBooks")
+	public @ResponseBody
+	Iterable<Book> getAllBook() {
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		String username = auth.getName();
+		Iterable<Book> books = bookservice.loadAllByUser(username);
+		return books;
 	}
 
 	@RequestMapping(value = "/saveBook", method = RequestMethod.POST)
 	public @ResponseBody
 	String saveBook(@RequestParam String name, @RequestParam String author,
 			@RequestParam int readStatus) {
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		String username = auth.getName();
+		Iterable<User> users = userService.search(username);
+		User user = users.iterator().next();
 		Book book = new Book();
 		book.setName(name);
 		book.setAuthor(author);
 		book.setReadStatus(readStatus);
+		book.setUser(user);
 		bookservice.saveBook(book);
 		return "ok";
 	}
@@ -49,10 +68,16 @@ public class BookController {
 	public @ResponseBody
 	String saveEditBook(@RequestParam Long id, @RequestParam String name,
 			@RequestParam String author, @RequestParam int readStatus) {
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		String username = auth.getName();
+		Iterable<User> users = userService.search(username);
+		User user = users.iterator().next();
 		Book book = bookservice.findBook(id);
 		book.setName(name);
 		book.setAuthor(author);
 		book.setReadStatus(readStatus);
+		book.setUser(user);
 		bookservice.saveBook(book);
 		return "ok";
 
@@ -61,15 +86,24 @@ public class BookController {
 	@RequestMapping(value = "/deleteBook")
 	public @ResponseBody
 	String deleteBook(@RequestParam Long id) {
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		String username = auth.getName();
 		Book book = bookservice.findBook(id);
-		bookservice.deleteBook(book);
+		User user = book.getUser();
+		if (user.getUsername().equals(username)) {
+			bookservice.deleteBook(book);
+		}
 		return "ok";
 	}
 
 	@RequestMapping(value = "/lendBook")
 	public ModelAndView lendBookPage(@RequestParam Long id) {
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		String username = auth.getName();
 		Book book = bookservice.findBook(id);
-		Iterable<Friend> friends = friendService.loadAllFriend();
+		Iterable<Friend> friends = friendService.loadAllFriend(username);
 		ModelAndView MAV = new ModelAndView("lendBook", "book", book);
 		MAV.addObject("friends", friends);
 		return MAV;
@@ -84,18 +118,22 @@ public class BookController {
 		return "ok";
 	}
 
-	@RequestMapping(value = "/getBooks")
-	public @ResponseBody
-	Iterable<Book> getAllBook() {
-		Iterable<Book> books = bookservice.loadAll();
-		return books;
+	@RequestMapping("/allLendBooks")
+	public ModelAndView lendIndex() {
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		String username = auth.getName();
+		Iterable<Book> books = bookservice.loadLendBook(username);
+		return new ModelAndView("lendIndex", "books", books);
 	}
 
-	@RequestMapping(value = "/searchBook")
+	@RequestMapping(value = "/lendBooks")
 	public @ResponseBody
-	Iterable<Book> searchBook(@RequestParam String name) {
-		Iterable<Book> books = bookservice.search(name);
-		return books;
+	Iterable<Book> loadAllLendBooks() {
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		String username = auth.getName();
+		return bookservice.loadLendBook(username);
 	}
 
 	@RequestMapping(value = "/returnBook")
@@ -105,22 +143,20 @@ public class BookController {
 		return "OK";
 	}
 
+	@RequestMapping(value = "/searchBook")
+	public @ResponseBody
+	Iterable<Book> searchBook(@RequestParam String name) {
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		String username = auth.getName();
+		Iterable<Book> books = bookservice.search(name, username);
+		return books;
+	}
+
 	@RequestMapping(value = "/readBooks")
 	public @ResponseBody
 	Iterable<Book> loadAllReadBooks() {
 		return bookservice.loadAllReadBooks();
-	}
-
-	@RequestMapping("/allLendBooks")
-	public ModelAndView lendIndex() {
-		Iterable<Book> books = bookservice.loadLendBook();
-		return new ModelAndView("lendIndex", "books", books);
-	}
-
-	@RequestMapping(value = "/lendBooks")
-	public @ResponseBody
-	Iterable<Book> loadAllLendBooks() {
-		return bookservice.loadLendBook();
 	}
 
 }
