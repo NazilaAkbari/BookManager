@@ -18,7 +18,8 @@ public class FriendService {
 	private UserRepository userRepository;
 
 	public Iterable<Friend> loadAllFriend(String username) {
-		Iterable<User> user = userRepository.findByUsername(username);
+		Iterable<User> users = userRepository.findByUsername(username);
+		User user = users.iterator().next();
 		return friendRepository.findByUser(user);
 	}
 
@@ -35,7 +36,8 @@ public class FriendService {
 	}
 
 	public Iterable<Friend> search(String name, String username) {
-		Iterable<User> user = userRepository.findByUsername(username);
+		Iterable<User> users = userRepository.findByUsername(username);
+		User user = users.iterator().next();
 		return friendRepository.findByNameAndUser(name, user);
 	}
 }

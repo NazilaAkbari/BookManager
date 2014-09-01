@@ -7,8 +7,8 @@ import com.nazi.model.User;
 
 public interface FriendRepository extends CrudRepository<Friend, Long> {
 
-	Iterable<Friend> findByUser(Iterable<User> user);
+	Iterable<Friend> findByUser(User user);
 
-	Iterable<Friend> findByNameAndUser(String name, Iterable<User> user);
+	Iterable<Friend> findByNameAndUser(String name, User user);
 
 }

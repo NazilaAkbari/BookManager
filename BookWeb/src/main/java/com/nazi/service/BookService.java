@@ -23,7 +23,8 @@ public class BookService {
 	private UserRepository userRepository;
 
 	public Iterable<Book> loadAllByUser(String username) {
-		Iterable<User> user = userRepository.findByUsername(username);
+		Iterable<User> users = userRepository.findByUsername(username);
+		User user = users.iterator().next();
 		return bookRepository.findByUser(user);
 	}
 
@@ -46,7 +47,8 @@ public class BookService {
 	}
 
 	public Iterable<Book> search(String name, String username) {
-		Iterable<User> user = userRepository.findByUsername(username);
+		Iterable<User> users = userRepository.findByUsername(username);
+		User user = users.iterator().next();
 		return bookRepository.findByNameAndUser(name, user);
 	}
 
@@ -72,7 +74,8 @@ public class BookService {
 	}
 
 	public Iterable<Book> loadLendBook(String username) {
-		Iterable<User> user = userRepository.findByUsername(username);
+		Iterable<User> users = userRepository.findByUsername(username);
+		User user = users.iterator().next();
 		Iterable<Book> books = bookRepository.findByUser(user);
 		Iterator<Book> bookIterator = books.iterator();
 		List<Book> lendBooks = new ArrayList<Book>();
@@ -85,5 +88,11 @@ public class BookService {
 		}
 
 		return lendBooks;
+	}
+
+	public Iterable<Book> findByOwner(String username, Friend friend) {
+		Iterable<User> users = userRepository.findByUsername(username);
+		User user = users.iterator().next();
+		return bookRepository.findByUserAndOwner(user, friend);
 	}
 }
