@@ -1,7 +1,5 @@
 package com.nazi.util;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import com.nazi.model.User;

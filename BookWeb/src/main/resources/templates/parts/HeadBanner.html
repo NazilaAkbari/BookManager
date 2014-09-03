@@ -44,15 +44,10 @@
 				</div>
 				<div class="col-lg-1">
 					<div class="dropdown">
-						<a id="dLabel" role="button" data-toggle="dropdown"
-							data-target="#" href="/page.html">  <span
-							class="caret"></span>
-						</a>
 
-
-						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-							sign out
-						</ul>
+						<form th:action="@{/logout}" method="post">
+							<input type="submit" value="Sign Out" />
+						</form>
 					</div>
 				</div>
 				<!-- /.col-lg-6 -->
