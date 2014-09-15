@@ -1,7 +1,5 @@
 package com.nazi.persistence;
 
-import java.util.UUID;
-
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.CrudRepository;
 
@@ -13,6 +11,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
 	Iterable<User> findByUsername(String username);
 
-	Iterable<User> findByRId(UUID rId);
+	Iterable<User> findByRId(String rId);
 
 }

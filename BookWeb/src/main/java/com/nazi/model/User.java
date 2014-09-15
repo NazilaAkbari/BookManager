@@ -1,7 +1,5 @@
 package com.nazi.model;
 
-import java.util.UUID;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +14,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	private UUID rId;
+	private String rId;
 	private String username;
 	private String password;
 	private String confirmPassword;
@@ -32,11 +30,11 @@ public class User {
 		this.id = id;
 	}
 
-	public UUID getrId() {
+	public String getrId() {
 		return rId;
 	}
 
-	public void setrId(UUID rId) {
+	public void setrId(String rId) {
 		this.rId = rId;
 	}
 

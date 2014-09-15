@@ -18,7 +18,7 @@ public class UserService {
 	private UserRepository userRepository;
 
 	public ResponseEntity<String> saveUser(User user) {
-		UUID rid = UUID.randomUUID();
+		String rid = UUID.randomUUID().toString();
 		SendMail send = new SendMail();
 		user.setUserRole("USER");
 		user.setEnabled(false);
@@ -43,11 +43,15 @@ public class UserService {
 
 	}
 
+	public void save(User user) {
+		userRepository.save(user);
+	}
+
 	public Iterable<User> search(String username) {
 		return userRepository.findByUsername(username);
 	}
 
-	public Iterable<User> searchRId(UUID rId) {
+	public Iterable<User> searchRId(String rId) {
 		return userRepository.findByRId(rId);
 	}
 }
