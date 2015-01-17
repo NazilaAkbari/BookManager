@@ -13,5 +13,7 @@ public class SendMailTest {
 		nazi.setUsername("nazila.akbari87@gmail.com");
 		send.email(nazi);
 	}
+	
+	
 
 }
