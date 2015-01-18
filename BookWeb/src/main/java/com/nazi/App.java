@@ -23,7 +23,7 @@ public class App {
 		driverManagerDataSource
 				.setUrl("jdbc:postgresql://localhost:5432/bookDB");
 		driverManagerDataSource.setUsername("postgres");
-		driverManagerDataSource.setPassword("postgres");
+		driverManagerDataSource.setPassword("123456");
 		return driverManagerDataSource;
 	}
 }

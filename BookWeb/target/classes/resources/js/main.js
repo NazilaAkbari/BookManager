@@ -34,6 +34,8 @@ var BookWeb = {
 				readStatus : readStatus
 			}
 		}).done(function() {
+			$('#name').val("");
+			$('#author').val("");
 			$('#addModal').modal('hide');
 			BookWeb.reRenderBooks();
 		});

@@ -25,6 +25,8 @@ var FriendWeb = {
 				email : email
 			}
 		}).done(function() {
+			$('#fname').val("");
+			$('#email').val("");
 			$('#addFriendModal').modal('hide');
 			FriendWeb.reRenderFriends();
 		});
