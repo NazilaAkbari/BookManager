@@ -4,6 +4,7 @@ import org.hamcrest.Matchers;
 import org.hamcrest.collection.IsEmptyCollection;
 import org.junit.Test;
 import org.springframework.http.HttpStatus;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.nazi.model.Book;
 
@@ -11,6 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.*;
 
+@Transactional
 public class BookControllerTest extends BaseWebTest {
 
 	@Test
@@ -37,6 +39,31 @@ public class BookControllerTest extends BaseWebTest {
 				.andExpect(status().isOk()).andDo(print())
 				.andExpect(jsonPath("$").isArray())
 				.andExpect(jsonPath("$", Matchers.hasSize(0)));
+	}
+
+	@Test
+	public void saveBook() throws Exception {
+		mockMvc.perform(post("/saveBook").session(loginAsUser())
+			   .param("name", "mohakeme")
+			   .param("author", "kafka")
+			   .param("readStatus", "1"))
+			   .andExpect(status().isOk());
+		
+		mockMvc.perform(get("/getBooks").session(loginAsUser()))
+		       .andExpect(status().isOk()).andDo(print())
+		       .andExpect(jsonPath("$").isArray())
+		       .andExpect(jsonPath("$", Matchers.hasSize(1)));
+
+	}
+	
+	@Test
+	public void saveEditBook() throws Exception{
+		mockMvc.perform(post("/saveEditBook").session(loginAsUser())
+			   .param("id","1")
+			   .param("name","havie")
+			   .param("author", "khosravi")
+			   .param("readStatus", "1"))
+			   .andExpect(status().isOk());
 	}
 
 }
