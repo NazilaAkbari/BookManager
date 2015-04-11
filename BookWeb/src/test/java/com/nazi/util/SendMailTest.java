@@ -6,7 +6,7 @@ import com.nazi.model.User;
 
 public class SendMailTest {
 
-	@Test
+	
 	public void testEmail() {
 		SendMail send = new SendMail();
 		User nazi = new User();

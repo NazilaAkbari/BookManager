@@ -9,6 +9,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity
 public class Book {
@@ -19,10 +23,18 @@ public class Book {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+
 	@Column(name = "name")
+	@NotEmpty(message = "Enter a name for book")
+	@NotBlank(message = "you can't Enter just space")
 	private String name;
+
 	@Column(name = "author")
+	@NotNull
+	@NotEmpty(message = "Enter author name")
+	@NotBlank(message = "you can't Enter just space")
 	private String author;
+
 	@Column(name = "readStatus")
 	private int readStatus;
 
@@ -34,6 +46,12 @@ public class Book {
 
 	@Column
 	private Date date;
+
+	@Column
+	private double lon;
+
+	@Column
+	private double lat;
 
 	public Date getDate() {
 		return date;
@@ -95,6 +113,22 @@ public class Book {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public double getLon() {
+		return lon;
+	}
+
+	public void setLon(double lon) {
+		this.lon = lon;
+	}
+
+	public double getLat() {
+		return lat;
+	}
+
+	public void setLat(double lat) {
+		this.lat = lat;
 	}
 
 	@Override

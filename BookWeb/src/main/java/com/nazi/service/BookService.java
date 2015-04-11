@@ -95,4 +95,9 @@ public class BookService {
 		User user = users.iterator().next();
 		return bookRepository.findByUserAndOwner(user, friend);
 	}
+	
+	public Iterable<Book> findByAll(String name){
+		Iterable<Book> books=bookRepository.findByName(name);
+		return books;
+	}
 }

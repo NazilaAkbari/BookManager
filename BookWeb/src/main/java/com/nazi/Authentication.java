@@ -17,9 +17,11 @@ public class Authentication extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.antMatchers("/css/**", "/signUp", "/success", "/confirm/*",
-						"/saveUser", "/js/**").permitAll().anyRequest()
-				.authenticated();
+				.antMatchers("/secure/**", "/css/**", "/signUp", "/success",
+						"/confirm/*", "/saveUser", "/js/**").permitAll()
+				.anyRequest().authenticated().and().requiresChannel()
+				.anyRequest().requiresSecure();
+		
 
 		http.formLogin().loginPage("/login").permitAll().and().csrf().disable()
 				.logout().permitAll();

@@ -30,7 +30,7 @@ public class BookControllerTest extends BaseWebTest {
 				.andExpect(model().attributeExists("books"))
 				.andExpect(
 						model().attribute("books",
-								new IsEmptyCollection<Book>()));
+								Matchers.hasSize(3)));
 	}
 
 	@Test
@@ -45,7 +45,7 @@ public class BookControllerTest extends BaseWebTest {
 		mockMvc.perform(get("/getBooks").session(loginAsUser()))
 				.andExpect(status().isOk()).andDo(print())
 				.andExpect(jsonPath("$").isArray())
-				.andExpect(jsonPath("$", Matchers.hasSize(0)));
+				.andExpect(jsonPath("$", Matchers.hasSize(3)));
 	}
 
 	@Test
@@ -58,7 +58,7 @@ public class BookControllerTest extends BaseWebTest {
 		mockMvc.perform(get("/getBooks").session(loginAsUser()))
 				.andExpect(status().isOk()).andDo(print())
 				.andExpect(jsonPath("$").isArray())
-				.andExpect(jsonPath("$", Matchers.hasSize(1)));
+				.andExpect(jsonPath("$", Matchers.hasSize(4)));
 
 	}
 
@@ -68,15 +68,15 @@ public class BookControllerTest extends BaseWebTest {
 		book.setName("mohakeme");
 		book.setAuthor("kafka");
 		book.setReadStatus(1);
-		Book newBook = bookRepository.save(book);
+		bookRepository.save(book);
 
 		mockMvc.perform(
 				post("/saveEditBook").session(loginAsUser())
-						.param("id", newBook.getId().toString())
+						.param("id", book.getId().toString())
 						.param("name", "havie").param("author", "khosravi")
 						.param("readStatus", "1")).andExpect(status().isOk());
 		
-		Book editedBook = bookRepository.findOne(newBook.getId());
+		Book editedBook = bookRepository.findOne(book.getId());
 
 		assertEquals("havie", editedBook.getName());
 		assertEquals("khosravi", editedBook.getAuthor());
@@ -94,12 +94,21 @@ public class BookControllerTest extends BaseWebTest {
 		User user = new User();
 		user.setUsername("nazila.akbari87@gmail.com");
 		book.setUser(user);
-		Book newBook = bookRepository.save(book);
+		bookRepository.save(book);
 		mockMvc.perform(get("/deleteBook").session(loginAsUser())
-				.param("id", newBook.getId().toString()))
+				.param("id", book.getId().toString()))
 				.andExpect(status().isOk());
 		
-		
+	}
+	
+	public void lendIndex() throws Exception{
+		mockMvc.perform(get("/lendBook").session(loginAsUser()))
+		.andExpect(status().isOk())
+		.andExpect(view().name("lendIndex"))
+		.andExpect(model().attributeExists("books"))
+		.andExpect(
+				model().attribute("books",
+						new IsEmptyCollection<Book>()));
 	}
 
 }
