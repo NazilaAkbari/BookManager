@@ -8,7 +8,7 @@ import org.apache.catalina.connector.Connector;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatConnectorCustomizer;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.context.annotation.Bean;
@@ -41,16 +41,16 @@ public class App {
 	}
 
 	@Bean
-	public EmbeddedServletContainerCustomizer containerCustomizer() throws FileNotFoundException
+	public EmbeddedServletContainerFactory containerCustomizer() throws FileNotFoundException
 	
 	{
-		String keystoreFile="C:/Users/n.akbari";
+		String keystoreFile="C:/Users/n.akbari/keystore.p12";
         String keystorePassword="nazila   123";
         String keystoreType="PKCS12";
         String keystoreAlias="tomcat";
 	    final String absoluteKeystoreFile = ResourceUtils.getFile(keystoreFile).getAbsolutePath();
 	     
-	    return (ConfigurableEmbeddedServletContainerFactory) -> {
+	
 			TomcatEmbeddedServletContainerFactory containerFactory = new TomcatEmbeddedServletContainerFactory();
 	        containerFactory.addConnectorCustomizers((TomcatConnectorCustomizer) (Connector connector) -> {
 	            connector.setSecure(true);
@@ -63,7 +63,9 @@ public class App {
 	            connector.setAttribute("sslProtocol", "TLS");
 	            connector.setAttribute("SSLEnabled", true);
 	        });
-	    };
+	        
+	        return containerFactory;
+	    
 	}
 
 }
