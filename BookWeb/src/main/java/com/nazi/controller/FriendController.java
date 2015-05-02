@@ -28,11 +28,11 @@ public class FriendController extends GetUser {
 	@Autowired
 	private BookService bookService;
 
-	@RequestMapping("/friend")
+/*	@RequestMapping("/friend")
 	public ModelAndView friendIndex() {
 		Iterable<Friend> friends = friendService.loadAllFriend(GettingUser());
 		return new ModelAndView("friendIndex", "friends", friends);
-	}
+	}*/
 
 	@RequestMapping(value = "/saveFriend", method = RequestMethod.POST)
 	public @ResponseBody

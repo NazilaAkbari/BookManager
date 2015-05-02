@@ -3,6 +3,7 @@ package com.nazi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,11 +28,11 @@ public class BookController extends GetUser {
 	@Autowired
 	private UserService userService;
 
-	@RequestMapping("/")
+/*	@RequestMapping("/")
 	public ModelAndView index() {
 		Iterable<Book> books = bookservice.loadAllByUser(GettingUser());
 		return new ModelAndView("index", "books", books);
-	}
+	}*/
 
 	@RequestMapping(value = "/getBooks")
 	public @ResponseBody
@@ -42,14 +43,9 @@ public class BookController extends GetUser {
 
 	@RequestMapping(value = "/saveBook", method = RequestMethod.POST)
 	public @ResponseBody
-	Book saveBook(@RequestParam String name, @RequestParam String author,
-			@RequestParam int readStatus) {
+	Book saveBook(@RequestBody Book book) {
 		Iterable<User> users = userService.search(GettingUser());
 		User user = users.iterator().next();
-		Book book = new Book();
-		book.setName(name);
-		book.setAuthor(author);
-		book.setReadStatus(readStatus);
 		book.setUser(user);
 		bookservice.saveBook(book);
 		return book;

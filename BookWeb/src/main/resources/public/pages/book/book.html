@@ -1,0 +1,103 @@
+
+<div class="starter-template">
+	<h1>Manage Your Library</h1>
+	<button type="button" data-loading-text="Loading..."
+		class="btn btn-primary" id="add" data-toggle="modal"
+		data-target="#addModal">Add Book</button>
+</div>
+<table class="table">
+	<thead>
+		<tr>
+			<th>number</th>
+			<th>Book Name</th>
+			<th>Author</th>
+			<th>Owner</th>
+			<th>Read Status</th>
+			<th style="text-align: center;">Action</th>
+			<th>Date</th>
+		</tr>
+	</thead>
+	<tbody id="bookContainer">
+		<tr ng-repeat="book in books">
+			<td>{{book.id}}</td>
+			<td>{{book.name}}</td>
+			<td>{{book.author}}</td>
+			<td>{{book.owner}}</td>
+			<td ng-if="book.readStatus == 0">READ</td>
+			<td ng-if="book.readStatus == 1">Currently reading</td>
+			<td ng-if="book.readStatus == 2">Want to Read</td>
+			<td><button type="button" data-loading-text="Loading..."
+					class="btn btn-primary" id="edit"
+					th:onclick="|BookWeb.showEditModal(${book.id},'${book.name}','${book.author}');|">Edit
+					Book</button>
+				<button type="button" data-loading-text="Loading..."
+					class="btn btn-primary" id="deleteBook"
+					th:onclick="|BookWeb.showDeleteModal(${book.id});|">Delete
+					Book</button>
+				<button ng-if="book.owner==null"
+					th:onclick="|BookWeb.showLendModal(${book.id},${book.owner!=null?book.owner.id:0});|"
+					type="button" data-loading-text="Loading..."
+					class="btn btn-primary" id="lend">Lend Book</button>
+				<button ng-if="book.owner!=null"
+					th:onclick="|BookWeb.returnBook(${book.id})|" type="button"
+					data-loading-text="Loading..." class="btn btn-primary" id="return">Returned</button></td>
+			<td th:text="${book.formatedDate}"></td>
+
+		</tr>
+	</tbody>
+</table>
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Add your Book</h4>
+			</div>
+			<div class="modal-body">
+				<table>
+					<tr>
+						<div class="form-group">
+							<label for="InputName">Enter Book Name</label>
+							<div class="input-group">
+								<input type="text" class="form-control" ng-model="newBook.name"
+									placeholder="Enter Book Name" required="required" /> <span
+									class="input-group-addon"></span>
+							</div>
+						</div>
+					</tr>
+					<tr>
+						<div class="form-group">
+							<label for="InputAuthor">Enter Author Name</label>
+							<div class="input-group">
+								<input type="text" class="form-control"
+									ng-model="newBook.author" placeholder="Author Name"
+									required="required" /> <span class="input-group-addon"></span>
+							</div>
+						</div>
+					</tr>
+					<tr>
+						<div class="form-group">
+							<label for="InputAuthor">Read Status</label>
+							<div>
+								<select name="readStatus" ng-model="newBook.readStatus">
+									<option value="0">Read</option>
+									<option value="1">Currently reading</option>
+									<option value="2">Want to read</option>
+								</select>
+							</div>
+						</div>
+
+					</tr>
+
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" id="save"
+					data-dismiss="modal" ng-click="addBook();">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>

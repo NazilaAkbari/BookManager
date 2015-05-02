@@ -47,12 +47,6 @@ public class Book {
 	@Column
 	private Date date;
 
-	@Column
-	private double lon;
-
-	@Column
-	private double lat;
-
 	public Date getDate() {
 		return date;
 	}
@@ -113,22 +107,6 @@ public class Book {
 
 	public void setUser(User user) {
 		this.user = user;
-	}
-
-	public double getLon() {
-		return lon;
-	}
-
-	public void setLon(double lon) {
-		this.lon = lon;
-	}
-
-	public double getLat() {
-		return lat;
-	}
-
-	public void setLat(double lat) {
-		this.lat = lat;
 	}
 
 	@Override
