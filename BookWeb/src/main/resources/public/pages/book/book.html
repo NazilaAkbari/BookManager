@@ -27,8 +27,7 @@
 			<td ng-if="book.readStatus == 1">Currently reading</td>
 			<td ng-if="book.readStatus == 2">Want to Read</td>
 			<td><button type="button" data-loading-text="Loading..."
-					class="btn btn-primary" id="edit"
-					th:onclick="|BookWeb.showEditModal(${book.id},'${book.name}','${book.author}');|">Edit
+					class="btn btn-primary" modal-drctv>Edit
 					Book</button>
 				<button type="button" data-loading-text="Loading..."
 					class="btn btn-primary" id="deleteBook"

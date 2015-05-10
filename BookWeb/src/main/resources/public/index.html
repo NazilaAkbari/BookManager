@@ -7,63 +7,15 @@
 <meta name="author" content="" />
 
 <title>Library Manager</title>
-<link rel="stylesheet" href="static/lib/bootstrap-3.3.4-dist/css/bootstrap.css" />
+<link rel="stylesheet"
+	href="static/lib/bootstrap-3.3.4-dist/css/bootstrap.css" />
 <link rel="stylesheet"
 	href="static/lib/bootstrap-3.3.4-dist/css/bootstrap-theme.css" />
 </head>
 <body ng-app="bookWeb">
 
 
-	<div class="navbar navbar-inverse " role="navigation">
-		<div class="container">
-			<div class="row">
-
-				<div class="col-lg-6">
-					<div class="navbar-header">
-						<button type="button" class="navbar-toggle" data-toggle="collapse"
-							data-target=".navbar-collapse">
-							<span class="sr-only">Lib Manager</span> <span class="icon-bar"></span>
-							<span class="icon-bar"></span> <span class="icon-bar"></span>
-						</button>
-						<a class="navbar-brand" href="#">Lib Manager</a>
-					</div>
-					<div class="collapse navbar-collapse">
-						<ul class="nav navbar-nav">
-							<li class="active"><a ng-href="/">Books</a></li>
-							<li class="activeFriend"><a ng-href="#/friend">Friends</a></li>
-							<li><a ng-href="/readBooks">Read Books</a></li>
-							<li><a ng-href="/allLendBooks">Lending</a></li>
-							<li style="float: right"></li>
-						</ul>
-					</div>
-					<!--/.nav-collapse -->
-				</div>
-				<div class="col-lg-2"></div>
-				<div class="col-lg-3">
-					<div class="input-group" style="padding-top: 6px">
-						<input type="text" class="form-control" placeholder="search"
-							id="search" /> <span class="input-group-btn">
-							<button class="btn btn-default" type="button"
-								onclick="search.search();">Go!</button>
-						</span>
-					</div>
-					<!-- /input-group -->
-
-				</div>
-				<div class="col-lg-1">
-					<div class="dropdown">
-
-
-						<!-- <form th:action="@{/logout}" method="post">
-							<input type="submit" value="Sign Out" />
-						</form> -->
-					</div>
-				</div>
-				<!-- /.col-lg-6 -->
-
-			</div>
-		</div>
-	</div>
+	<div header-drctv></div>
 
 	<div class="container" ng-view></div>
 
@@ -75,6 +27,8 @@
 	<script src="app.js"></script>
 	<script src="pages/book/bookCtrl.js"></script>
 	<script src="pages/book/bookService.js"></script>
+	<script src="directive/js/headerDirective.js"></script>
+	<script src="directive/js/modal.js"></script>
 	<script src="pages/friend/friendCtrl.js"></script>
 
 

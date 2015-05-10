@@ -1,9 +1,9 @@
 'use strict';
 
-function BookCtrl( BookService) {
+function BookCtrl(BookService) {
 
-	var vm=this;
-	
+	var vm = this;
+
 	function loadBooks() {
 		BookService.getBooks().success(function(result) {
 			vm.books = result;
@@ -20,5 +20,4 @@ function BookCtrl( BookService) {
 
 }
 
-angular.module('bookWeb').controller('BookCtrl',
-		['BookService', BookCtrl ]);
+angular.module('bookWeb').controller('BookCtrl', [ 'BookService', BookCtrl ]);
