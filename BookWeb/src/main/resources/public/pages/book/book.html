@@ -18,11 +18,11 @@
 		</tr>
 	</thead>
 	<tbody id="bookContainer">
-		<tr ng-repeat="book in books">
+		<tr ng-repeat="book in bookCtrl.books">
 			<td>{{book.id}}</td>
 			<td>{{book.name}}</td>
 			<td>{{book.author}}</td>
-			<td>{{book.owner}}</td>
+			<td>{{book.owner.name}}</td>
 			<td ng-if="book.readStatus == 0">READ</td>
 			<td ng-if="book.readStatus == 1">Currently reading</td>
 			<td ng-if="book.readStatus == 2">Want to Read</td>

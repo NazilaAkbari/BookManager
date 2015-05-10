@@ -6,7 +6,7 @@ function Config($routeProvider) {
 		controller : 'FriendCtrl'
 	}).otherwise({
 		templateUrl : 'pages/book/book.html',
-		controller : 'BookCtrl'
+		controller : 'BookCtrl as bookCtrl'
 	});
 }
 

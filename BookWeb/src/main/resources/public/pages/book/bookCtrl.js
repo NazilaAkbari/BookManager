@@ -1,17 +1,19 @@
 'use strict';
 
-function BookCtrl($scope, BookService) {
+function BookCtrl( BookService) {
 
+	var vm=this;
+	
 	function loadBooks() {
 		BookService.getBooks().success(function(result) {
-			$scope.books = result;
+			vm.books = result;
 		});
 	}
 
 	loadBooks();
 
-	$scope.addBook = function() {
-		BookService.addBook($scope.newBook).success(function() {
+	vm.addBook = function() {
+		BookService.addBook(vm.newBook).success(function() {
 			loadBooks();
 		});
 	};
@@ -19,4 +21,4 @@ function BookCtrl($scope, BookService) {
 }
 
 angular.module('bookWeb').controller('BookCtrl',
-		[ '$scope', 'BookService', BookCtrl ]);
+		['BookService', BookCtrl ]);
