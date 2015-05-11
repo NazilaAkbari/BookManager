@@ -27,7 +27,7 @@
 			<td ng-if="book.readStatus == 1">Currently reading</td>
 			<td ng-if="book.readStatus == 2">Want to Read</td>
 			<td><button type="button" data-loading-text="Loading..."
-					class="btn btn-primary" modal-drctv>Edit
+					class="btn btn-primary" ng-click="bookCtrl.showModal()">Edit
 					Book</button>
 				<button type="button" data-loading-text="Loading..."
 					class="btn btn-primary" id="deleteBook"
@@ -46,7 +46,7 @@
 	</tbody>
 </table>
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog"
-	aria-labelledby="myModalLabel" aria-hidden="true">
+	aria-labelledby="myModalLabel" aria-hidden="true" showModal>
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -96,6 +96,60 @@
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				<button type="button" class="btn btn-primary" id="save"
 					data-dismiss="modal" ng-click="addBook();">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel" ng-show="showModal">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title" id="myModalLabel">Edit your Book</h4>
+			</div>
+			<div class="modal-body">
+				<input type="hidden" id="eid" />
+				<table>
+					<tr>
+						<div class="form-group">
+							<label for="InputAuthor">Enter Book Name</label>
+							<div class="input-group">
+								<input type="text" class="form-control" id="ename" name="ename"
+									placeholder="Book Name" required="required" /> <span
+									class="input-group-addon"></span>
+							</div>
+						</div>
+					</tr>
+					<tr>
+						<div class="form-group">
+							<label for="InputAuthor">Enter Author Name</label>
+							<div class="input-group">
+								<input type="text" class="form-control" id="eauthor"
+									name="eauthor" placeholder="Author Name" required="required" />
+								<span class="input-group-addon"></span>
+							</div>
+						</div>
+					</tr>
+					<tr>
+						<div class="form-group">
+							<label for="InputAuthor">Read Status</label>
+							<div>
+								<select name="readStatus" id="editReadStatus"><option
+										value="0">Read</option>
+									<option value="1">Currently reading</option>
+									<option value="2">Want to read</option>
+								</select>
+							</div>
+						</div>
+					</tr>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary" id="edit"
+					onclick="BookWeb.editBook();">Save changes</button>
 			</div>
 		</div>
 	</div>

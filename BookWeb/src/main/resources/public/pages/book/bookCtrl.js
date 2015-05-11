@@ -17,6 +17,14 @@ function BookCtrl(BookService) {
 			loadBooks();
 		});
 	};
+	
+	vm.showModal=false;
+	
+	vm.showModal = function(){
+		alert("hi");
+		vm.showModal=true;
+		alert(vm.showModal);
+	}
 
 }
 
